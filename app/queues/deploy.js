@@ -9,7 +9,7 @@ const logger = require("../lib/logger");
 const Deployments = require("../models/Deployments");
 const { dashboardSocket } = require("../websocket/namespaces/dashboard");
 
-const deploymentQueue = new Queue("deployments", "redis://127.0.0.1:6379");
+const deploymentQueue = new Queue("deployments", process.env.REDIS_URL);
 
 deploymentQueue.process(async (job, done) => {
   const { data: deploymentId } = job;

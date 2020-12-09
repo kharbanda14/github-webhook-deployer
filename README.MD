@@ -1,6 +1,7 @@
 ## Table of contents
 - [GitHub Webhook Deployer](#github-webhook-deployer)
   - [Installation](#installation)
+  - [Configuration](#configuration)
   - [Starting](#starting)
   - [Usage](#usage)
   - [Requirements](#requirements)
@@ -16,6 +17,12 @@ GitHub Webhook Deployer is a simple application to automate your deployments on 
 3. Create `.env` file in folder root and based on the values provided in `.env.sample`.
 4. Run `npm bin/console app install` which creates a new user for the app.
 
+## Configuration
+```
+DATABASE="mongodb://localhost:27017/your-db-name"
+REDIS_URL="redis://127.0.0.1:6379"
+SECRET="some-secret"
+```
 ## Starting 
 1. Run `node ./bin/www` or `pm2 start ecosystem.config.js` if you are using pm2.
 2. Visit `http://localhost:3000` base on the port specified.
@@ -30,6 +37,7 @@ GitHub Webhook Deployer is a simple application to automate your deployments on 
 ## Requirements
 1. Node.js
 2. MongoDB
+3. Redis Server
 
 ## Resources used.
 1. CSS Framework [Tailwind](https://tailwindcss.com/)
