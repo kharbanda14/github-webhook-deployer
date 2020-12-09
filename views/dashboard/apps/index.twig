@@ -1,0 +1,103 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% block body %}
+
+	<div class="flex justify-between items-center">
+		<h1 class="my-5 text-3xl">Applications</h1>
+
+		<a href="{{ url("dashboard/apps/create") }}" class="bg-pink-600 p-2 text-white text-sm rounded">
+			<div class="flex items-center">
+				<i class="fa fa-plus mr-2"></i>
+				<span>NEW</span>
+			</div>
+		</a>
+
+	</div>
+
+	<div class="w-full mb-3">
+		<div class="flex items-center justify-between">
+			<div class="flex items-center space-x-2">
+				{% for category in appCategories %}
+					<a href="{{ url("dashboard/apps/category", category) }}" class="{{ params.category == category ? "bg-pink-600" : "bg-gray-400" }} cursor-pointer font-semibold leading-tight px-4 py-2 rounded-full text-sm text-white tracking-wider uppercase">#{{ category }}</a>
+				{% endfor %}
+			</div>
+			<div>
+				<form action="" class="flex items-center">
+					<input type="search" name="q" value="{{ query.q }}" class="border-2 p-2 text-sm" id="">
+					<button type="submit" class="bg-gray-200 px-3 py-2">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% if apps.docs.length %}
+		{% for app in apps.docs %}
+			<div class="bg-white border rounded shadow mb-2 hover:shadow-lg">
+
+				<div class="p-5 flex items-center justify-between">
+
+					<div class="w-full pr-5">
+						<div class="flex justify-between items-center">
+							<div>
+								<h2 class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{{ app.category }}</h2>
+
+								<h1 class="title-font text-lg font-medium text-gray-900 mb-3">
+									<a href="{{ url("dashboard/apps/deployments", app._id) }}">{{ app.name }}</a>
+								</h1>
+							</div>
+
+							<div class="flex items-center space-x-4">
+								<div class="text-gray-500 text-sm">
+
+									{{ app.createdAt | date("d M, Y h:m A") }}
+								</div>
+								<div class="bg-pink-500 cursor-pointer font-semibold leading-tight px-4 py-2 rounded-full text-sm text-white tracking-wider uppercase">{{ app.targetBranch }}</div>
+
+
+								<div class="px-2 rounded space-x-1 bg-gray-200">
+									<a href="{{ url("dashboard/apps/deployments", app._id) }}" class="flex items-center justify-between space-x-1 ">
+										<i class="fa fa-history"></i>
+										<span>{{ app.deployments.success }}</span>
+									</a>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="">
+						<div class="flex">
+							<a href="{{ url("dashboard/apps/edit", app._id) }}" class="w-9 h-9 flex items-center justify-center hover:bg-gray-100 rounded-lg">
+
+								<i class="fa fa-edit"></i>
+							</a>
+							<div class="w-9 h-9 flex items-center justify-center hover:bg-gray-100 rounded-lg" onclick="deleteApp('{{ app._id }}')">
+								<i class="fa fa-trash"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		{% endfor %}
+
+	{% else %}
+		<div class="w-full">
+			<div class="bg-white text-base font-semibold text-center py-4 uppercase text-base">No apps created</div>
+
+		</div>
+	{% endif %}
+
+
+	{% include "partials/dashboard/paginate.twig" with {
+    data: apps
+  } %}
+
+{% endblock %}

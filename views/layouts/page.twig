@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ env.APP_NAME }}</title>
+		<meta name="author" content="David Grzyb">
+		<meta
+		name="description" content="">
+
+		<!-- Tailwind -->
+		<link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+		<style>
+			@import url('https://fonts.googleapis.com/css?family=Karla:400, 700 &display=swap');
+
+			.font-family-karla {
+				font-family: karla;
+			}
+		</style>
+	</head>
+	<body class="bg-white font-family-karla h-screen">
+
+		<div
+			class="w-full flex flex-wrap">
+
+			<!-- Login Section -->
+			<div class="w-full md:w-1/2 flex flex-col"> {% block body %}{% endblock %}
+
+				</div>
+
+				<!-- Image Section -->
+				<div class="w-1/2 shadow-2xl">
+					<img class="object-cover w-full h-screen hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
+				</div>
+			</div>
+
+		</body>
+	</html>

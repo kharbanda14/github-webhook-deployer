@@ -1,0 +1,24 @@
+<div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+	<span class="text-xs xs:text-sm text-gray-900">
+		Showing
+		{{ data.pagingCounter }}
+		to
+		{{ data.pagingCounter + data.docs.length - 1 }}
+		of
+		{{ data.totalDocs }}
+		Entries
+	</span>
+	<div class="inline-flex mt-2 xs:mt-0">
+		{% if data.hasPrevPage %}
+			<a href="?page={{ data.prevPage }}" class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+				Prev
+			</a>
+		{% endif %}
+		{% if data.hasNextPage %}
+			<a href="?page={{ data.nextPage }}" class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+				Next
+			</a>
+		{% endif %}
+
+	</div>
+</div>

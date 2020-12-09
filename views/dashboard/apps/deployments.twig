@@ -1,0 +1,61 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% block body %}
+
+	<div class="my-4">
+		<h1 class="flex items-center justify-between my-4 ">
+
+			<span class="text-3xl">{{ app.name }}
+				Deployments
+			</span>
+			<div>
+				<label class="switch">
+					<input type="checkbox" {{ app.status == appStatus.ACTIVE ? 'checked' : '' }} onchange="toggleAppState('{{ app._id }}')">
+					<span class="slider round"></span>
+				</label>
+			</div>
+		</h1>
+		<span class="bg-gray-800 font-semibold px-4 py-1 rounded-full text-gray-300 text-sm">
+			{{ url("/webhooks", app.slug) }}
+		</span>
+
+		<div class="w-full my-3 pr-5">
+			<div class="flex items-center justify-between">
+				<div class="flex items-center space-x-2">
+					{% for status in deploymentStatus %}
+						<a href="?status={{ status }}" class="{{ query.status == status ? "bg-pink-600" : "bg-gray-400" }} cursor-pointer font-semibold leading-tight px-4 py-2 rounded-full text-sm text-white tracking-wider uppercase">{{ status }}</a>
+					{% endfor %}
+				</div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="">
+
+		<div class="">
+
+			<div class="w-full pr-5">
+
+				{% include "partials/dashboard/deployments.table.twig" with {
+          deployments: deployments
+        } %}
+
+				{% include "partials/dashboard/paginate.twig" with {
+          data: deployments
+        } %}
+
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function copyUrl(element) {
+element.select();
+document.execCommand("copy");
+}
+	</script>
+
+{% endblock %}

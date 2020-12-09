@@ -1,0 +1,121 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% block body %}
+
+	<div class="flex justify-between items-center">
+		<h1 class="my-5 text-3xl">{{ app.name }}
+			| View Deployment
+		</h1>
+	</div>
+
+
+	<div class="">
+		<div class="">
+			<div class="w-full">
+
+				<div class="bg-white rounded grid grid-cols-1 md:grid-cols-3 mb-3 p-5">
+					<div class="col-span-1">
+						<h5 class="font-medium text-2xl mb-3 text-gray-700">Deployment Details</h5>
+						<p>General Details for an executed deployment</p>
+					</div>
+					<div class="col-span-2">
+						<table class="w-full">
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">Status</th>
+								<td>
+									<span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+										<span aria-hidden class="absolute inset-0 {{ deploymentStatusClass[deployment.status] }} opacity-50 rounded-full"></span>
+										<span class="relative uppercase">{{ deployment.status }}</span>
+									</span>
+								</td>
+							</tr>
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">Commit</th>
+								<td class="py-2">
+									<a class="undeline" href="{{ deployment.head_commit.url }}">{{ deployment.head_commit.message }}</a>
+									<p class="text-gray-400 text-sm">{{ deployment.head_commit.timestamp | date("d M, Y h:m A") }}</p>
+								</td>
+							</tr>
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">User</th>
+								<td class="py-2">
+									<div class="flex items-center">
+										<div class="flex-shrink-0 w-10 h-10">
+											<img class="w-full h-full rounded-full" src="{{ deployment.sender.avatar_url }}" alt=""/>
+										</div>
+										<div class="ml-3">
+											<p class="text-gray-900 whitespace-no-wrap">
+												{{ deployment.sender.login }}
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">Branch</th>
+								<td>
+									{{ deployment.ref }}
+								</td>
+							</tr>
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">Created At</th>
+								<td>{{ deployment.createdAt | date("d M, Y h:m A") }}</td>
+							</tr>
+							<tr class="border-b-2">
+								<th class="py-2 uppercase text-gray-700">Updated At</th>
+								<td>{{ deployment.updatedAt | date("d M, Y h:m A") }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+				{% if deployment.status == deploymentStatus.COMPLETED %}
+					<div class="bg-white rounded grid grid-cols-1 md:grid-cols-3 mb-3 p-5">
+						<div class="col-span-1">
+							<h5 class="font-medium text-2xl mb-3 text-gray-700">Deployment Response</h5>
+							<p>Response from the executed command</p>
+						</div>
+						<div class="col-span-2">
+							<pre><code class="language-bash">{{ deployment.deploymentResponse }}</code></pre>
+						</div>
+					</div>
+				{% endif %}
+
+
+				{% if deployment.status == deploymentStatus.FAILED %}
+					<div class="bg-white rounded grid grid-cols-1 md:grid-cols-3 mb-3 p-5">
+
+						<div class="col-span-1">
+							<h5 class="font-medium text-2xl mb-3 text-gray-700">Deployment Error</h5>
+							<p>Error Response from the executed command</p>
+						</div>
+						<div class="col-span-2">
+							<pre><code class="language-bash">{{ deployment.deploymentError }}</code></pre>
+						</div>
+					</div>
+				{% endif %}
+
+
+				<div class="bg-white rounded grid grid-cols-1 md:grid-cols-3 mb-3 p-5">
+
+					<div class="col-span-1">
+						<h5 class="font-medium text-2xl mb-3 text-gray-700">Webhook Payload</h5>
+						<p>Payload response recieved from Github</p>
+					</div>
+					<div class="col-span-2">
+						<pre><code class="language-json">{{ deployment.body }}</code></pre>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js" integrity="sha512-9+422Bs3A87UkWfp+qV80Nfv9arhbCXKY1rxrF2seorI36mIIstMiuBfyKLF1yH1nnzQkEWq2xrzT4XU3Z+vrA==" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-Q3qGP1uJL/B0sEmu57PKXjCirgPKMbg73OLRbTJ6lfHCVU5zkHqmcTI5EV2fSoPV1MHdKsCBE7m/aS6q0pPjRQ==" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous"/>
+
+
+{% endblock %}

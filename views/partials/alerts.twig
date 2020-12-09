@@ -1,0 +1,18 @@
+{% if flash_error %}
+	<div class="bg-red-100 p-5 w-full mt-4">
+		<div class="flex space-x-3">
+			<div class="leading-tight flex flex-col space-y-2">
+				<div class="text-sm font-medium text-red-700">{{ flash_error }}</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+{% if flash_success %}
+	<div class="bg-green-100 p-5 w-full mt-4">
+		<div class="flex space-x-3">
+			<div class="leading-tight flex flex-col space-y-2">
+				<div class="text-sm font-medium text-green-700">{{ flash_success }}</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+require("dotenv").config();
+const consoleArguments = require("minimist")(process.argv.slice(2));
+const fs = require("fs");
+const path = require("path");
+
+const database = require("../app/db");
+
+const [commandFolder, file] = consoleArguments._;
+
+(async function () {
+  try {
+    let modulePath = path.join(
+      process.cwd(),
+      `app/cli/${commandFolder}/${file}.${commandFolder}.js`
+    );
+
+    if (!fs.existsSync(modulePath)) {
+      throw new Error("Command does not exists");
+    }
+    await require(modulePath)(consoleArguments);
+    console.log("Command executed successfully");
+    await database.disconnect();
+  } catch (error) {
+    console.log(error.message);
+    await database.disconnect();
+  }
+})();

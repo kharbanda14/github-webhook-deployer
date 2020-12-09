@@ -1,0 +1,57 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% block body %}
+
+	<div class="flex justify-between items-center">
+		<h1 class="my-5 text-3xl">Create Application</h1>
+	</div>
+
+	<div class="bg-white border rounded shadow">
+		<div class="p-5 ">
+			<form action="" method="post">
+				<div class="grid grid-cols-4 gap-4">
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Name</label>
+
+						<input type="text" name="name" value="{{ app.name }}" class="border-2 border-gray-400 border-solid p-2 w-full"/>
+					</div>
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Category</label>
+						<select name="category" class="border-2 border-gray-400 border-solid p-2 w-full" id="">
+							{% for item in category %}
+								<option value="{{ item }}" {% if item == app.category %} selected {% endif %}>{{ item }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Application Directory</label>
+						<input type="text" name="applicationDirectory" value="{{ app.applicationDirectory }}" class="border-2 border-gray-400 border-solid p-2 w-full"/>
+					</div>
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Execute</label>
+						<input type="text" name="executeCommand" value="{{ app.executeCommand }}" class="border-2 border-gray-400 border-solid p-2 w-full"/>
+					</div>
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Github Webhook Secret</label>
+						<input type="text" value="{{ randomSecret }}" name="webhookSecret" class="border-2 border-gray-400 border-solid p-2 w-full"/>
+
+					</div>
+					<div>
+						<label class="my-2 block uppercase text-gray-600 text-sm">Target Branch</label>
+						<input type="text" name="targetBranch" value="{{ app.targetBranch }}" class="border-2 border-gray-400 border-solid p-2 w-full"/>
+
+
+					</div>
+				</div>
+
+				<div class="mt-5">
+					<button type="submit" class="bg-pink-600 px-4 py-2 text-white text-sm rounded">
+						Save
+					</button>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+{% endblock %}
