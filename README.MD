@@ -1,5 +1,5 @@
 ## Table of contents
-- [GitHub Webhook Deployer](#github-webhook-deployer)
+- [GitHub Webhook Deployer (Beta)](#github-webhook-deployer-beta)
   - [Installation](#installation)
   - [Configuration](#configuration)
   - [Starting](#starting)
@@ -7,11 +7,13 @@
   - [Requirements](#requirements)
   - [Resources used.](#resources-used)
 
-# GitHub Webhook Deployer
+# GitHub Webhook Deployer (Beta)
 
 GitHub Webhook Deployer is a simple application to automate your deployments on your single cloud server using the Github Webhook Triggers. It simply listens for `push` event and based on your configuration to deploys or executes commands to deploy the application.
 
 ![Dashboard Screenshot](content/screenshot.png)
+
+> Watch a quick demonstration of the app in [this video](https://youtu.be/B5i-UyPvFhw).
 
 ## Installation
 1. Clone the repository
