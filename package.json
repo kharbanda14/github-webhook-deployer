@@ -21,6 +21,7 @@
     "express-async-errors": "^3.1.1",
     "express-session": "^1.17.1",
     "faker": "^5.1.0",
+    "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
     "inquirer": "^7.3.3",
     "joi": "^17.3.0",
